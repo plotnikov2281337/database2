@@ -48,24 +48,20 @@ namespace database2
             var type = textBox7.Text;
             var country = textBox6.Text;
             DateTime year_create;
-            var musics = textBox4.Text;
             var alboms = textBox2.Text;
             var members = textBox8.Text;
-            try
-            {
-                DateTime.TryParse($"{textBox5.Text}.{textBox3.Text}.{textBox9.Text}", out year_create);
+
+                DateTime.TryParse($"{textBox9.Text}.{textBox3.Text}.{textBox5.Text}", out year_create);
+            Console.WriteLine($"{ year_create.Day}.{ year_create.Month}.{ year_create.Year}");
                 if (name != null && type != null) {
-                    var query = $"INSERT INTO Music_Group (Название, Вид, Страна, [Год создания], [Музыкальные произведения], Альбомы, Состав) VALUES ('{name}', '{type}', '{country}', {year_create.Date}, '{musics}', '{alboms}', '{members}')";
+                    var query = $"INSERT INTO Music_Group (Название, Вид, Страна, [Год создания], Альбомы, Состав) VALUES ('{name}', '{type}', '{country}', '{year_create.Day}.{year_create.Month}.{year_create.Year}', '{alboms}', '{members}')";
 
                     var command = new SqlCommand(query, database.getConnection());
                     command.ExecuteNonQuery();
                     MessageBox.Show("Запись создана", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Hide();
                 }
-            } catch
-            {
-                MessageBox.Show("Год должен иметь числовой формат", "Провал", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            
             database.closeConnection();
         }
 

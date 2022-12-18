@@ -10,30 +10,27 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 namespace database2
 {
-    public partial class Form3 : Form
+    public partial class CreateAlbom : Form
     {
-        public Form3()
+        database database = new database();
+        public CreateAlbom()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             database.openConnection();
             var name = textBox1.Text;
             DateTime date;
-            var placeOfBird = textBox3.Text;
-            var role = textBox4.Text;
-            DateTime.TryParse($"{textBox5.Text}.{textBox6.Text}.{textBox2.Text}", out date);
+            var musics = textBox2.Text;
+            var group = textBox6.Text;
+            var link = textBox7.Text;
+            DateTime.TryParse($"{textBox4.Text}.{textBox5.Text}.{textBox3.Text}", out date);
             try
             {
-                var query = $"INSERT INTO Members (ФИО, [Дата рождения], [Место рождения], [Роль в группе]) VALUES ('{name}', '{date.Day}.{date.Month}.{date.Year}', '{placeOfBird}', '{role}')";
+                var query = $"INSERT INTO Alboms (Название, [Дата создания], [Музыкальные произведения], Группа, Ссылка) VALUES ('{name}', '{date.Day}.{date.Month}.{date.Year}', '{musics}', '{group}', '{link}')";
 
                 var command = new SqlCommand(query, database.getConnection());
                 command.ExecuteNonQuery();
@@ -45,8 +42,5 @@ namespace database2
 
             database.closeConnection();
         }
-
-        database database = new database();
-       
     }
 }
